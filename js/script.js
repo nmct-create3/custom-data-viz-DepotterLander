@@ -3,6 +3,7 @@ const $legendEl = document.querySelector(`.js-legend`);
 const $chartEl = document.querySelector(`.js-chart`);
 const $controlsEl = document.querySelector(`.js-controls`);
 const $toggleEl = document.querySelector(`.js-theme-toggle`);
+const app__controls = document.querySelector(`.app-controls`);
 // empty object to store the data
 let data;
 
@@ -65,9 +66,44 @@ const drawArc = (([cx, cy], [rx, ry], [t1, Δ], φ,) => {
 // and it should sync with system changes
 
 // init function
+function createRadioButtons(partyData) {
+    let counter = 1;
+  
+    // Iterate through each party in the JSON data
+    for (const party in partyData) {
+      const radioBtn = document.createElement("input");
+      const radioBtnId = `partyRadio${counter++}`;
+      radioBtn.type = "radio";
+      radioBtn.name = "party";
+      radioBtn.id = radioBtnId;
+      radioBtn.value = party;
+      radioBtn.classList.add("u-display-none");
+      
+      const label = document.createElement("label");
+      label.htmlFor = radioBtnId;
+      label.innerHTML = party;
+      label.classList.add("radio-label");
+  
+      // Append the radio button and label to the container
+      app__controls.appendChild(radioBtn);
+      app__controls.appendChild(label);
+    }
+  }
+  
+
+let fetchJsonData = () =>
+  fetch("./assets/data/data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // Call the function to create radio buttons when the data is loaded
+      createRadioButtons(data);
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+
+// Call the function to create radio buttons when the DOM is loaded
 
 const init = () => {
-
+  fetchJsonData();
 };
 
-init();
+document.addEventListener("DOMContentLoaded", init());

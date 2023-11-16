@@ -1,5 +1,11 @@
 @import"https://unpkg.com/open-props/easings.min.css";
 
+@font-face {
+    font-family: "Inter UI Web";
+    font-weight: 400;
+    src: url("../fonts/Inter-UI-Regular.woff2") format("woff2")
+}
+
 :root {
     --color-1: oklch(0.67 0.23 12.3 / 1);
     --color-2: oklch(0.74 0.17 34.45);
@@ -20,6 +26,24 @@
     --color-neutral-900: oklch(0.18 0.02 290.7);
 
     --global-fontSize: 14;
+
+    --global-uiColor: var(--color-6);
+    --global-textColor: var(--color-neutral-800); 
+    --global-textColor-muted: var(--color-neutral-600); 
+    --global-textColor-meta: var(--color-neutral-500); 
+    --global-backgroundColor: var(--color-neutral-100); 
+    --global-foregroundColor: white;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --global-textColor: var(--color-neutral-100); 
+        --global-textColor-muted: var(--color-neutral-300); 
+        --global-textColor-meta:  var(--color-neutral-500); 
+        --global-backgroundColor: var(--color-neutral-900); 
+        --global-foregroundColor: var(--color-neutral-800);
+    }
 }
 
 
@@ -40,7 +64,15 @@ svg {
 
 /* global page styles */
 
-html {}
+html {
+    font-size: 87.5%;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    color: var(--global-textColor);
+    background-color: var(--global-backgroundColor); font-size: calc(var (--global-fontSize) /16*1rem);
+}
+
+
 
 /* center everything */
 
@@ -48,7 +80,10 @@ body {}
 
 /* global typography */
 
-h2 {}
+h2 {
+    font-size: 1rem;
+    margin: 24px;
+}
 
 /* screen reader only object class */
 
@@ -97,8 +132,27 @@ h2 {}
     margin-top: 1.5rem;
 }
 
-/* app stuff */
+::after {
+content: '';
+display: inline-block;
+width: 1rem;
+height: 1rem;
+border-radius: 50%;
+background-color: var(--legendColor);
+}
 
+/* app stuff */
+.grid-container {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.app__flow {
+    max-width: 400px;
+    background-color: white;
+    border-radius: 20px;
+}
 /* the paths */
 
 /* the legend and controls */
